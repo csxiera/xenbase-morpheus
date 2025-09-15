@@ -2,18 +2,16 @@
 <html>
 <head>
   <title>Heat Map Viewer</title>
-  <!-- Link to Morpheus CSS -->
   <link rel="stylesheet" href="morpheus/css/morpheus-latest.min.css">
 </head>
 <body>
-  <!-- Heatmap container -->
   <div id="heatmapWrapper" style="width:800px; height:600px;"></div>
 
-  <!-- Load Morpheus JS first -->
   <script src="morpheus/src/morpheus-latest.min.js"></script>
   <script src="morpheus/src/morpheus-external-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-  <!-- Then load your main script -->
-  <script src="test.js"></script>
+  <script type="module" src="renderHeatmap.js"></script>
+
 </body>
 </html>

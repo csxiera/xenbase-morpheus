@@ -1,4 +1,4 @@
-console.log("✅ test.js loaded");
+import { loadData } from "./dataLoader.js";
 
 var logging = true;		// is logging to the console enabled? (true/false)
 var lastTime = new Date().getTime();	// time in ms when last message was logged
@@ -51,84 +51,6 @@ var colorMap = [
   }
 ];
 
-// Test sample list
-var sampleList = [
-  {
-    label: 'Tadpole Head',
-    structure: 'Head',
-    age: 'Stage 45',
-    stage: 'Late',
-    alleles: 'WT',
-    strain: 'Nigerian',
-    sex: 'Unknown',
-    expID: 'EXP_XT001',
-    bioreplicateCount: 2,
-    bioreplicateSetID: 201
-  },
-  {
-    label: 'Tailbud',
-    structure: 'Tail',
-    age: 'Stage 28',
-    stage: 'Mid',
-    alleles: 'WT',
-    strain: 'Nigerian',
-    sex: 'Unknown',
-    expID: 'EXP_XT002',
-    bioreplicateCount: 2,
-    bioreplicateSetID: 202
-  },
-  {
-    label: 'Whole Embryo',
-    structure: 'Embryo',
-    age: 'Stage 10',
-    stage: 'Early',
-    alleles: 'WT',
-    strain: 'Nigerian',
-    sex: 'Unknown',
-    expID: 'EXP_XT003',
-    bioreplicateCount: 2,
-    bioreplicateSetID: 203
-  }
-];
-
-// Test marker list
-var markerList = [
-  {
-    symbol: 'sox2',
-    markerID: 'XB-GENE-484553',
-    ensemblGMID: 'ENSXETG00000036807'
-  },
-  {
-    symbol: 'actb',
-    markerID: 'XB-GENE-490883',
-    ensemblGMID: 'ENSXETG00000025116'
-  },
-  {
-    symbol: 'pax6',
-    markerID: 'XB-GENE-484088',
-    ensemblGMID: 'ENSXETG00000008175'
-  }
-];
-
-// Test TPM values
-cellTPM = {
-  'XB-GENE-484553': { // sox2
-    201: 0.1012,
-    202: 0.0022,
-    203: 0.0001
-  },
-  'XB-GENE-490883': { // actb
-    201: 0.4001,
-    202: 0.6000,
-    203: 1.0
-  },
-  'XB-GENE-484088': { // pax6
-    201: 0.6002,
-    202: 0.0000998,
-    203: 0.2025
-  }
-};
-
 // Show the legend popup.
 function showPopup() {
 	$('#tipsPopup').dialog( {
@@ -174,7 +96,7 @@ function initializeHmData(sampleList, markerList) {
 	hmData['rows'] = markerList.length;
 	hmData['columns'] = sampleList.length;
 	hmData['seriesDataTypes'] = [ 'Float32' ];
-	hmData['seriesNames'] = [ 'Mouse RNA-Seq Heat Map of GXD search results' ];
+	hmData['seriesNames'] = [ 'Differentially Expressed Gene Data for GSE103240' ];
 }
 
 // Populate the sample IDs into hmData.
@@ -183,7 +105,7 @@ function fillInSampleIDs(sampleList) {
 	var sample;
 	for (var s = 0; s < sampleList.length; s++) {
 		sample = sampleList[s];
-		hmData['sampleIDs'].push(sample['bioreplicateSetID']);
+		hmData['sampleIDs'].push(sample['replicateID']);
 	}
 	log('Collected ' + hmData['sampleIDs'].length + ' sample IDs');
 }
@@ -193,43 +115,11 @@ function fillInSamples(sampleList) {
 	hmData['columnMetadataModel'] = {
 		'vectors' : [
 			{
-				'name' : 'label',
+				'name' : 'Experiment Name',
 				'array' : []
 			},
 			{
-				'name' : 'structure',
-				'array' : []
-			},
-			{
-				'name' : 'age',
-				'array' : []
-			},
-			{
-				'name' : 'stage',
-				'array' : []
-			},
-			{
-				'name' : 'alleles',
-				'array' : []
-			},
-			{
-				'name' : 'strain',
-				'array' : []
-			},
-			{
-				'name' : 'sex',
-				'array' : []
-			},
-			{
-				'name' : 'expID',
-				'array' : []
-			},
-			{
-				'name' : 'bioreplicateCount',
-				'array' : []
-			},
-			{
-				'name' : 'XB_BioReplicateSet_ID',
+				'name' : 'Replicate ID',
 				'array' : []
 			}
 		]
@@ -239,15 +129,7 @@ function fillInSamples(sampleList) {
 	for (var s = 0; s < sampleList.length; s++) {
 		sample = sampleList[s];
 		hmData['columnMetadataModel']['vectors'][0]['array'].push(sample['label']);
-		hmData['columnMetadataModel']['vectors'][1]['array'].push(sample['structure']);
-		hmData['columnMetadataModel']['vectors'][2]['array'].push(sample['age']);
-		hmData['columnMetadataModel']['vectors'][3]['array'].push(String(sample['stage']));
-		hmData['columnMetadataModel']['vectors'][4]['array'].push(sample['alleles']);
-		hmData['columnMetadataModel']['vectors'][5]['array'].push(sample['strain']);
-		hmData['columnMetadataModel']['vectors'][6]['array'].push(sample['sex']);
-		hmData['columnMetadataModel']['vectors'][7]['array'].push(sample['expID']);
-		hmData['columnMetadataModel']['vectors'][8]['array'].push(String(sample['bioreplicateCount']));
-		hmData['columnMetadataModel']['vectors'][9]['array'].push(sample['bioreplicateSetID']);
+		hmData['columnMetadataModel']['vectors'][1]['array'].push(sample['replicateID']);
 	}
 
 	log('Collected ' + hmData['columnMetadataModel']['vectors'].length + ' sample vectors');
@@ -260,14 +142,6 @@ function fillInMarkers(markerList) {
 			{
 				'name' : 'Gene Symbol',
 				'array' : []
-			},
-			{
-				'name' : 'XB ID',
-				'array' : []
-			},
-			{
-				'name' : 'Ensembl ID',
-				'array' : []
 			}
 		]
 	};
@@ -276,15 +150,13 @@ function fillInMarkers(markerList) {
 	for (var m = 0; m < markerList.length; m++) {
 		marker = markerList[m];
 		hmData['rowMetadataModel']['vectors'][0]['array'].push(marker['symbol']);
-		hmData['rowMetadataModel']['vectors'][1]['array'].push(marker['markerID']);
-		hmData['rowMetadataModel']['vectors'][2]['array'].push(marker['ensemblGMID']);
 	}
 
 	log('Collected ' + hmData['rowMetadataModel']['vectors'].length + ' marker vectors');
 }
 
 // Actually build the structure of TPM values into hmData.
-function fillInCells(sampleList, markerList) {
+function fillInCells(sampleList, markerList, cellTPM) {
 	var notStudied = null;		// flag for cells that have not been studied
 
 	// Data are in a list of rows, with each row being a list of column values.
@@ -312,7 +184,7 @@ function fillInCells(sampleList, markerList) {
 		markerID = marker['markerID'];
 		for (var s = 0; s < sampleList.length; s++) {
 			sample = sampleList[s];
-			sampleID = parseInt(sample['bioreplicateSetID']);
+			sampleID = parseInt(sample['replicateID']);
 			if ((markerID in cellTPM) && (sampleID in cellTPM[markerID])) {
 				hmData['seriesArrays'][0][m][s] = parseFloat(cellTPM[markerID][sampleID]);
 				cells++;
@@ -323,13 +195,13 @@ function fillInCells(sampleList, markerList) {
 }
 
 // Slice and dice the data to produce the data for Morpheus.  Then hand off to Morpheus to render the heat map.
-function buildDataForMorpheus(sampleList, markerList) {
+function buildDataForMorpheus(sampleList, markerList, cellTPM) {
 	//updateLoadingMessage(spinner + ' Collating cells, genes, and samples...', false);
 	initializeHmData(sampleList, markerList);
 	fillInSampleIDs(sampleList);
 	fillInSamples(sampleList);
 	fillInMarkers(markerList);
-	fillInCells(sampleList, markerList);
+	fillInCells(sampleList, markerList, cellTPM);
 	log('Finished building data for Morpheus');
 
 	$('#heatmapWrapper').empty();
@@ -359,7 +231,13 @@ function buildDataForMorpheus(sampleList, markerList) {
 	log('Heatmap displayed (' + elapsed + ' ms)');
 }
 
-// Now call your builder
-console.log("Calling buildDataForMorpheus...");
-buildDataForMorpheus(sampleList, markerList);
-console.log("✅ buildDataForMorpheus finished");
+(async () => {
+	const { sampleList, markerList, cellTPM } = await loadData();
+  
+	// Debugging checks
+	console.log("Samples loaded:", sampleList.length, sampleList);
+	console.log("Markers loaded:", markerList.length, markerList);
+	console.log("cellTPM keys:", Object.keys(cellTPM).slice(0, 10));
+  
+	buildDataForMorpheus(sampleList, markerList, cellTPM);
+  })();

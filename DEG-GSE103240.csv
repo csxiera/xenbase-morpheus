@@ -1,0 +1,91 @@
+Experiment Name,Gene,Model ID,LogFC,TPM,Control TPM,FDR/pAdj
+anterior neural fold|preplacodal ectoderm - NF14,hoxc6.L,XBXL10_1g8243,-10.8626161,0,24.76,1.30E-33
+anterior neural fold|preplacodal ectoderm - NF14,myf5.L,XBXL10_1g12487,-11.81376804,0,89.675,4.49E-40
+anterior neural fold|preplacodal ectoderm - NF14,LOC100498622.L,XBXL10_1g24266,-9.772617505,0,11.725,2.65E-23
+anterior neural fold|preplacodal ectoderm - NF14,alpl.S,XBXL10_1g34054,10.24807116,7.508,0,0.004069092
+anterior neural fold|preplacodal ectoderm - NF14,klhl31.L,XBXL10_1g23748,-10.18560855,0,11.465,7.84E-26
+anterior neural fold|preplacodal ectoderm - NF14,il21r.S,XBXL10_1g43860,-10.68024577,0,16.135,4.29E-29
+anterior neural fold|preplacodal ectoderm - NF14,LOC108717234,XBXL10_1g24540,-10.12762137,0,16.19,3.82E-24
+anterior neural fold|preplacodal ectoderm - NF14,LOC108701392,XBXL10_1g40746,-10.49716573,0.008,19.095,9.83E-48
+anterior neural fold|preplacodal ectoderm - NF14,hoxc6.S,XBXL10_1g10838,-10.47296559,0,18.93,4.00E-31
+anterior neural fold|preplacodal ectoderm - NF14,ugt1a1.L,XBXL10_1g40781,-9.871607428,0.024,55.305,4.19E-36
+anterior neural fold|preplacodal ectoderm - NF14,slc6a8.L,XBXL10_1g34547,-9.711702539,0,13.685,3.77E-25
+anterior neural fold|preplacodal ectoderm - NF14,LOC108700279,XBXL10_1g38376,-9.68069062,0,9.92,8.19E-23
+anterior neural fold|preplacodal ectoderm - NF14,spam1.L,XBXL10_1g12753,-10.21375586,0.07,108.31,4.85E-48
+anterior neural fold|preplacodal ectoderm - NF14,LOC108715014,XBXL10_1g21985,-11.1601779,0,16.555,1.31E-32
+anterior neural fold|preplacodal ectoderm - NF14,LOC108703256,XBXL10_1g44088,-10.2502233,0,11.85,9.76E-27
+anterior neural fold|preplacodal ectoderm - NF14,LOC101027296,XBXL10_1g33824,-9.731543368,0.044,61.04,2.88E-35
+anterior neural fold|preplacodal ectoderm - NF14,hnf1b.L,XBXL10_1g7007,-9.736450129,0.014,24.34,3.08E-35
+anterior neural fold|preplacodal ectoderm - NF14,litafd.S,XBXL10_1g43776,-9.800174505,0,57.9,1.14E-22
+anterior neural fold|preplacodal ectoderm - NF14,hoxc8.S,XBXL10_1g10839,-9.910734294,0,9.26,4.11E-27
+anterior neural fold|preplacodal ectoderm - NF14,cdx2.S,XBXL10_1g10980,-9.715908842,0.068,86.38,1.42E-39
+anterior neural fold|preplacodal ectoderm - NF14,atp2a1.L,XBXL10_1g42130,-11.7689169,0.014,91.06,7.44E-54
+anterior neural fold|preplacodal ectoderm - NF14,myf5.S,XBXL10_1g16327,-10.55362906,0,29.485,4.46E-29
+anterior neural fold|preplacodal ectoderm - NF14,slc6a8.S,XBXL10_1g37720,-11.88308095,0.004,74.835,1.35E-51
+anterior neural fold|preplacodal ectoderm - NF14,LOC108715837,XBXL10_1g22172,-11.43831509,0,43.65,1.32E-33
+anterior neural fold|preplacodal ectoderm - NF14,darmin.L,XBXL10_1g27733,-11.27506863,0.048,184.86,2.67E-49
+anterior neural fold|preplacodal ectoderm - NF14,slc7a2.L,XBXL10_1g850,-9.653150295,0,10.425,3.66E-21
+anterior neural fold|preplacodal ectoderm - NF14,atp2a1.S,XBXL10_1g44424,-9.965882288,0.148,83.015,1.09E-39
+anterior neural fold|preplacodal ectoderm - NF14,myos.L,XBXL10_1g31653,-10.6365335,0,10.465,5.89E-30
+anterior neural fold|preplacodal ectoderm - NF14,hoxb9.S,XBXL10_1g42295,-9.654117307,0,11.245,1.38E-24
+anterior neural fold|preplacodal ectoderm - NF14,hoxa10.L,XBXL10_1g27098,-10.14488981,0,10.155,1.29E-28
+anterior non-neural ectoderm - NF14,hoxc6.L,XBXL10_1g8243,-7.269115906,0.126666667,24.76,1.85E-23
+anterior non-neural ectoderm - NF14,myf5.L,XBXL10_1g12487,-9.93328871,0.053333333,89.675,1.60E-36
+anterior non-neural ectoderm - NF14,LOC100498622.L,XBXL10_1g24266,-9.907647855,0,11.725,4.78E-21
+anterior non-neural ectoderm - NF14,alpl.S,XBXL10_1g34054,6.894115202,0.746666667,0,0.022996483
+anterior non-neural ectoderm - NF14,klhl31.L,XBXL10_1g23748,-7.488911979,0.066666667,11.465,7.33E-23
+anterior non-neural ectoderm - NF14,il21r.S,XBXL10_1g43860,-10.81494044,0,16.135,1.23E-26
+anterior non-neural ectoderm - NF14,LOC108717234,XBXL10_1g24540,-10.26345145,0,16.19,1.75E-20
+anterior non-neural ectoderm - NF14,LOC108701392,XBXL10_1g40746,-13.33286968,0,19.095,8.34E-48
+anterior non-neural ectoderm - NF14,hoxc6.S,XBXL10_1g10838,-5.071851315,0.45,18.93,6.62E-17
+anterior non-neural ectoderm - NF14,ugt1a1.L,XBXL10_1g40781,-7.498907197,0.196666667,55.305,3.85E-25
+anterior non-neural ectoderm - NF14,slc6a8.L,XBXL10_1g34547,-9.846237461,0,13.685,1.02E-22
+anterior non-neural ectoderm - NF14,LOC108700279,XBXL10_1g38376,-9.815391093,0,9.92,1.71E-21
+anterior non-neural ectoderm - NF14,spam1.L,XBXL10_1g12753,-10.59517344,0.05,108.31,9.47E-48
+anterior non-neural ectoderm - NF14,LOC108715014,XBXL10_1g21985,-11.29466426,0,16.555,4.70E-30
+anterior non-neural ectoderm - NF14,LOC108703256,XBXL10_1g44088,-7.563255269,0.04,11.85,5.21E-24
+anterior non-neural ectoderm - NF14,LOC101027296,XBXL10_1g33824,-11.37736201,0,61.04,4.80E-30
+anterior non-neural ectoderm - NF14,hnf1b.L,XBXL10_1g7007,-0.364652889,15.61333333,24.34,0.916856361
+anterior non-neural ectoderm - NF14,litafd.S,XBXL10_1g43776,-9.935634517,0,57.9,4.32E-20
+anterior non-neural ectoderm - NF14,hoxc8.S,XBXL10_1g10839,-10.04526454,0,9.26,8.17E-24
+anterior non-neural ectoderm - NF14,cdx2.S,XBXL10_1g10980,-5.009045586,2.266666667,86.38,2.02E-15
+anterior non-neural ectoderm - NF14,atp2a1.L,XBXL10_1g42130,-12.14834293,0.013333333,91.06,1.12E-54
+anterior non-neural ectoderm - NF14,myf5.S,XBXL10_1g16327,-8.673465564,0.04,29.485,1.01E-26
+anterior non-neural ectoderm - NF14,slc6a8.S,XBXL10_1g37720,-13.51102228,0,74.835,2.64E-43
+anterior non-neural ectoderm - NF14,LOC108715837,XBXL10_1g22172,-11.57339609,0,43.65,9.64E-31
+anterior non-neural ectoderm - NF14,darmin.L,XBXL10_1g27733,-14.10232509,0,184.86,5.83E-42
+anterior non-neural ectoderm - NF14,slc7a2.L,XBXL10_1g850,-9.788915755,0,10.425,1.86E-18
+anterior non-neural ectoderm - NF14,atp2a1.S,XBXL10_1g44424,-10.23088681,0.373333333,83.015,2.47E-36
+anterior non-neural ectoderm - NF14,myos.L,XBXL10_1g31653,-10.77172247,0,10.465,1.44E-26
+anterior non-neural ectoderm - NF14,hoxb9.S,XBXL10_1g42295,-5.004523033,0.26,11.245,9.70E-09
+anterior non-neural ectoderm - NF14,hoxa10.L,XBXL10_1g27098,-6.259940415,0.1,10.155,8.90E-21
+chordal neural plate border - NF14,hoxc6.L,XBXL10_1g8243,1.573241371,53.588,24.76,0.433223328
+chordal neural plate border - NF14,myf5.L,XBXL10_1g12487,-6.636617659,0.622,89.675,2.81E-21
+chordal neural plate border - NF14,LOC100498622.L,XBXL10_1g24266,-6.168521697,0.106,11.725,1.10E-17
+chordal neural plate border - NF14,alpl.S,XBXL10_1g34054,8.561288792,2.26,0,0.035121151
+chordal neural plate border - NF14,klhl31.L,XBXL10_1g23748,-4.420056457,0.35,11.465,1.05E-07
+chordal neural plate border - NF14,il21r.S,XBXL10_1g43860,-9.330213201,0.012,16.135,1.87E-28
+chordal neural plate border - NF14,LOC108717234,XBXL10_1g24540,-5.49399606,0.248,16.19,4.65E-15
+chordal neural plate border - NF14,LOC108701392,XBXL10_1g40746,-7.023483894,0.104,19.095,1.17E-12
+chordal neural plate border - NF14,hoxc6.S,XBXL10_1g10838,1.716086355,45.458,18.93,0.406058205
+chordal neural plate border - NF14,ugt1a1.L,XBXL10_1g40781,-11.48415251,0,55.305,2.32E-32
+chordal neural plate border - NF14,slc6a8.L,XBXL10_1g34547,-9.828525784,0,13.685,6.61E-24
+chordal neural plate border - NF14,LOC108700279,XBXL10_1g38376,-9.797627063,0,9.92,1.37E-21
+chordal neural plate border - NF14,spam1.L,XBXL10_1g12753,-9.208327377,0.126,108.31,8.16E-34
+chordal neural plate border - NF14,LOC108715014,XBXL10_1g21985,-2.682786769,3.36,16.555,0.511339667
+chordal neural plate border - NF14,LOC108703256,XBXL10_1g44088,-5.14852444,0.228,11.85,1.51E-09
+chordal neural plate border - NF14,LOC101027296,XBXL10_1g33824,-8.216293514,0.13,61.04,2.72E-24
+chordal neural plate border - NF14,hnf1b.L,XBXL10_1g7007,2.197580715,80.17,24.34,0.000283285
+chordal neural plate border - NF14,litafd.S,XBXL10_1g43776,-9.917657002,0,57.9,3.48E-21
+chordal neural plate border - NF14,hoxc8.S,XBXL10_1g10839,1.781675589,23.19,9.26,0.383056364
+chordal neural plate border - NF14,cdx2.S,XBXL10_1g10980,1.856770039,227.13,86.38,0.406505988
+chordal neural plate border - NF14,atp2a1.L,XBXL10_1g42130,-6.491442248,0.682,91.06,6.19E-10
+chordal neural plate border - NF14,myf5.S,XBXL10_1g16327,-5.578467344,0.424,29.485,5.09E-21
+chordal neural plate border - NF14,slc6a8.S,XBXL10_1g37720,-9.078572967,0.05,74.835,3.15E-22
+chordal neural plate border - NF14,LOC108715837,XBXL10_1g22172,-8.268773103,0.094,43.65,4.76E-27
+chordal neural plate border - NF14,darmin.L,XBXL10_1g27733,-11.45796556,0.042,184.86,1.92E-44
+chordal neural plate border - NF14,slc7a2.L,XBXL10_1g850,-9.770849368,0,10.425,6.53E-20
+chordal neural plate border - NF14,atp2a1.S,XBXL10_1g44424,-5.287835713,2.11,83.015,2.53E-05
+chordal neural plate border - NF14,myos.L,XBXL10_1g31653,-5.033681846,0.216,10.465,1.09E-11
+chordal neural plate border - NF14,hoxb9.S,XBXL10_1g42295,3.605388825,99.052,11.245,0.040146206
+chordal neural plate border - NF14,hoxa10.L,XBXL10_1g27098,1.750874887,24.914,10.155,0.473746386
