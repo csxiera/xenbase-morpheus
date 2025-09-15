@@ -1,34 +1,34 @@
 Experiment Name,Gene,Model ID,LogFC,TPM,Control TPM,FDR/pAdj
-anterior neural fold|preplacodal ectoderm - NF14,hoxc6.L,XBXL10_1g8243,-10.8626161,0,24.76,1.30E-33
-anterior neural fold|preplacodal ectoderm - NF14,myf5.L,XBXL10_1g12487,-11.81376804,0,89.675,4.49E-40
-anterior neural fold|preplacodal ectoderm - NF14,LOC100498622.L,XBXL10_1g24266,-9.772617505,0,11.725,2.65E-23
-anterior neural fold|preplacodal ectoderm - NF14,alpl.S,XBXL10_1g34054,10.24807116,7.508,0,0.004069092
-anterior neural fold|preplacodal ectoderm - NF14,klhl31.L,XBXL10_1g23748,-10.18560855,0,11.465,7.84E-26
-anterior neural fold|preplacodal ectoderm - NF14,il21r.S,XBXL10_1g43860,-10.68024577,0,16.135,4.29E-29
-anterior neural fold|preplacodal ectoderm - NF14,LOC108717234,XBXL10_1g24540,-10.12762137,0,16.19,3.82E-24
-anterior neural fold|preplacodal ectoderm - NF14,LOC108701392,XBXL10_1g40746,-10.49716573,0.008,19.095,9.83E-48
-anterior neural fold|preplacodal ectoderm - NF14,hoxc6.S,XBXL10_1g10838,-10.47296559,0,18.93,4.00E-31
-anterior neural fold|preplacodal ectoderm - NF14,ugt1a1.L,XBXL10_1g40781,-9.871607428,0.024,55.305,4.19E-36
-anterior neural fold|preplacodal ectoderm - NF14,slc6a8.L,XBXL10_1g34547,-9.711702539,0,13.685,3.77E-25
-anterior neural fold|preplacodal ectoderm - NF14,LOC108700279,XBXL10_1g38376,-9.68069062,0,9.92,8.19E-23
-anterior neural fold|preplacodal ectoderm - NF14,spam1.L,XBXL10_1g12753,-10.21375586,0.07,108.31,4.85E-48
-anterior neural fold|preplacodal ectoderm - NF14,LOC108715014,XBXL10_1g21985,-11.1601779,0,16.555,1.31E-32
-anterior neural fold|preplacodal ectoderm - NF14,LOC108703256,XBXL10_1g44088,-10.2502233,0,11.85,9.76E-27
-anterior neural fold|preplacodal ectoderm - NF14,LOC101027296,XBXL10_1g33824,-9.731543368,0.044,61.04,2.88E-35
-anterior neural fold|preplacodal ectoderm - NF14,hnf1b.L,XBXL10_1g7007,-9.736450129,0.014,24.34,3.08E-35
-anterior neural fold|preplacodal ectoderm - NF14,litafd.S,XBXL10_1g43776,-9.800174505,0,57.9,1.14E-22
-anterior neural fold|preplacodal ectoderm - NF14,hoxc8.S,XBXL10_1g10839,-9.910734294,0,9.26,4.11E-27
-anterior neural fold|preplacodal ectoderm - NF14,cdx2.S,XBXL10_1g10980,-9.715908842,0.068,86.38,1.42E-39
-anterior neural fold|preplacodal ectoderm - NF14,atp2a1.L,XBXL10_1g42130,-11.7689169,0.014,91.06,7.44E-54
-anterior neural fold|preplacodal ectoderm - NF14,myf5.S,XBXL10_1g16327,-10.55362906,0,29.485,4.46E-29
-anterior neural fold|preplacodal ectoderm - NF14,slc6a8.S,XBXL10_1g37720,-11.88308095,0.004,74.835,1.35E-51
-anterior neural fold|preplacodal ectoderm - NF14,LOC108715837,XBXL10_1g22172,-11.43831509,0,43.65,1.32E-33
-anterior neural fold|preplacodal ectoderm - NF14,darmin.L,XBXL10_1g27733,-11.27506863,0.048,184.86,2.67E-49
-anterior neural fold|preplacodal ectoderm - NF14,slc7a2.L,XBXL10_1g850,-9.653150295,0,10.425,3.66E-21
-anterior neural fold|preplacodal ectoderm - NF14,atp2a1.S,XBXL10_1g44424,-9.965882288,0.148,83.015,1.09E-39
-anterior neural fold|preplacodal ectoderm - NF14,myos.L,XBXL10_1g31653,-10.6365335,0,10.465,5.89E-30
-anterior neural fold|preplacodal ectoderm - NF14,hoxb9.S,XBXL10_1g42295,-9.654117307,0,11.245,1.38E-24
-anterior neural fold|preplacodal ectoderm - NF14,hoxa10.L,XBXL10_1g27098,-10.14488981,0,10.155,1.29E-28
+anterior neural fold | preplacodal ectoderm - NF14,hoxc6.L,XBXL10_1g8243,-10.8626161,0,24.76,1.30E-33
+anterior neural fold | preplacodal ectoderm - NF14,myf5.L,XBXL10_1g12487,-11.81376804,0,89.675,4.49E-40
+anterior neural fold | preplacodal ectoderm - NF14,LOC100498622.L,XBXL10_1g24266,-9.772617505,0,11.725,2.65E-23
+anterior neural fold | preplacodal ectoderm - NF14,alpl.S,XBXL10_1g34054,10.24807116,7.508,0,0.004069092
+anterior neural fold | preplacodal ectoderm - NF14,klhl31.L,XBXL10_1g23748,-10.18560855,0,11.465,7.84E-26
+anterior neural fold | preplacodal ectoderm - NF14,il21r.S,XBXL10_1g43860,-10.68024577,0,16.135,4.29E-29
+anterior neural fold | preplacodal ectoderm - NF14,LOC108717234,XBXL10_1g24540,-10.12762137,0,16.19,3.82E-24
+anterior neural fold | preplacodal ectoderm - NF14,LOC108701392,XBXL10_1g40746,-10.49716573,0.008,19.095,9.83E-48
+anterior neural fold | preplacodal ectoderm - NF14,hoxc6.S,XBXL10_1g10838,-10.47296559,0,18.93,4.00E-31
+anterior neural fold | preplacodal ectoderm - NF14,ugt1a1.L,XBXL10_1g40781,-9.871607428,0.024,55.305,4.19E-36
+anterior neural fold | preplacodal ectoderm - NF14,slc6a8.L,XBXL10_1g34547,-9.711702539,0,13.685,3.77E-25
+anterior neural fold | preplacodal ectoderm - NF14,LOC108700279,XBXL10_1g38376,-9.68069062,0,9.92,8.19E-23
+anterior neural fold | preplacodal ectoderm - NF14,spam1.L,XBXL10_1g12753,-10.21375586,0.07,108.31,4.85E-48
+anterior neural fold | preplacodal ectoderm - NF14,LOC108715014,XBXL10_1g21985,-11.1601779,0,16.555,1.31E-32
+anterior neural fold | preplacodal ectoderm - NF14,LOC108703256,XBXL10_1g44088,-10.2502233,0,11.85,9.76E-27
+anterior neural fold | preplacodal ectoderm - NF14,LOC101027296,XBXL10_1g33824,-9.731543368,0.044,61.04,2.88E-35
+anterior neural fold | preplacodal ectoderm - NF14,hnf1b.L,XBXL10_1g7007,-9.736450129,0.014,24.34,3.08E-35
+anterior neural fold | preplacodal ectoderm - NF14,litafd.S,XBXL10_1g43776,-9.800174505,0,57.9,1.14E-22
+anterior neural fold | preplacodal ectoderm - NF14,hoxc8.S,XBXL10_1g10839,-9.910734294,0,9.26,4.11E-27
+anterior neural fold | preplacodal ectoderm - NF14,cdx2.S,XBXL10_1g10980,-9.715908842,0.068,86.38,1.42E-39
+anterior neural fold | preplacodal ectoderm - NF14,atp2a1.L,XBXL10_1g42130,-11.7689169,0.014,91.06,7.44E-54
+anterior neural fold | preplacodal ectoderm - NF14,myf5.S,XBXL10_1g16327,-10.55362906,0,29.485,4.46E-29
+anterior neural fold | preplacodal ectoderm - NF14,slc6a8.S,XBXL10_1g37720,-11.88308095,0.004,74.835,1.35E-51
+anterior neural fold | preplacodal ectoderm - NF14,LOC108715837,XBXL10_1g22172,-11.43831509,0,43.65,1.32E-33
+anterior neural fold | preplacodal ectoderm - NF14,darmin.L,XBXL10_1g27733,-11.27506863,0.048,184.86,2.67E-49
+anterior neural fold | preplacodal ectoderm - NF14,slc7a2.L,XBXL10_1g850,-9.653150295,0,10.425,3.66E-21
+anterior neural fold | preplacodal ectoderm - NF14,atp2a1.S,XBXL10_1g44424,-9.965882288,0.148,83.015,1.09E-39
+anterior neural fold | preplacodal ectoderm - NF14,myos.L,XBXL10_1g31653,-10.6365335,0,10.465,5.89E-30
+anterior neural fold | preplacodal ectoderm - NF14,hoxb9.S,XBXL10_1g42295,-9.654117307,0,11.245,1.38E-24
+anterior neural fold | preplacodal ectoderm - NF14,hoxa10.L,XBXL10_1g27098,-10.14488981,0,10.155,1.29E-28
 anterior non-neural ectoderm - NF14,hoxc6.L,XBXL10_1g8243,-7.269115906,0.126666667,24.76,1.85E-23
 anterior non-neural ectoderm - NF14,myf5.L,XBXL10_1g12487,-9.93328871,0.053333333,89.675,1.60E-36
 anterior non-neural ectoderm - NF14,LOC100498622.L,XBXL10_1g24266,-9.907647855,0,11.725,4.78E-21

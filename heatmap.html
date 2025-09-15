@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Heat Map Viewer</title>
+  <link rel="stylesheet" href="morpheus/css/morpheus-latest.min.css">
+  <style>
+      div[data-name="tip"] {
+        margin-bottom: 10px !important;
+      }
+  </style>
+</head>
+<body>
+  <div id="heatmapWrapper"  style="width:100%; height:100%;"></div>
+
+  <script src="morpheus/src/morpheus-latest.min.js"></script>
+  <script src="morpheus/src/morpheus-external-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <script type="module" src="renderHeatmap.js"></script>
+  <div style="margin-left: 50px;"></div>
+
+</body>
+</html>

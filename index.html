@@ -2,16 +2,23 @@
 <html>
 <head>
   <title>Heat Map Viewer</title>
-  <link rel="stylesheet" href="morpheus/css/morpheus-latest.min.css">
+  <style>
+    body {
+      background-color: #f0f1eb;
+      margin: 0;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    iframe {
+      border: none;
+    }
+  </style>
 </head>
 <body>
-  <div id="heatmapWrapper" style="width:800px; height:600px;"></div>
+  <h1>TPM Heatmap for GSE103240</h1>
 
-  <script src="morpheus/src/morpheus-latest.min.js"></script>
-  <script src="morpheus/src/morpheus-external-latest.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
-  <script type="module" src="renderHeatmap.js"></script>
+  <iframe src="heatmap.html" style="width: 800px; height: 800px; border: none; padding: 20px; background-color: white;"></iframe>
 
 </body>
 </html>

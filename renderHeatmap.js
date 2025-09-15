@@ -15,58 +15,23 @@ function log(msg) {
    	}
 }
 
+// Heatmap coloring (-2 to +2 scale)
 var colorMap = [
-  { value: -2.0, color: '#008080' },   // Deep teal
+  { value: -2.0, color: '#008080' },
   { value: -1.5, color: '#339999' },
   { value: -1.0, color: '#66b2b2' },
   { value: -0.5, color: '#99cccc' },
-  { value:  0.0, color: '#ffffff' },   // White
+  { value:  0.0, color: '#ffffff' },
   { value:  0.5, color: '#d4b28c' },
   { value:  1.0, color: '#c48c5c' },
   { value:  1.5, color: '#a66a3f' },
-  { value:  2.0, color: '#804000' }    // Orangy-brown
+  { value:  2.0, color: '#804000' }
 ];
 
-// Show the legend popup.
-function showPopup() {
-	$('#tipsPopup').dialog( {
-		title : 'Heat Map Legend',
-		width : '400px',
-		position : { my: 'right center', at: 'right center', within: window }
-	} );
-}
-
-// cellTPM[marker ID][sample key] = average quantile-normalized TPM value
-//var cellTPM = {};
-
-// number of cells to request in a single batch (sized to have progress meter updates every 11-12 seconds)
-var chunkSize = 150000;
-
-// number of data cells already retrieved
-var countDone = 0;
-
-// number of data cells to retrieve
-var totalCount = 0;
-
-// list of chunks of cells to retrieve, each a sublist as [ start index (inclusive), end index (exclusive) ]
-var chunks = [];
-
-// number of chunks where we've sent a request and are currently waiting for results
-var chunksInProgress = 0;
-
-// max number of chunks to request simultaneously
-var maxRequests = 3;
-
-// Have we failed yet?  If so, we should ignore pending data requests and not overwrite error messages.
-var failed = false;
-
-// map of sample keys
-var sampleKeys = {};
-
-// data structure for Morpheus (complex)
+// Data structure for Morpheus
 var hmData = {};
 
-// Reset the hmData structure (for Morpheus) and fill in the simple fields.
+// Reset the hmData structure and fill in the simple fields.
 function initializeHmData(sampleList, markerList) {
 	hmData = {};		// reset structure
 	hmData['rows'] = markerList.length;
@@ -75,7 +40,7 @@ function initializeHmData(sampleList, markerList) {
 	hmData['seriesNames'] = [ 'Differentially Expressed Gene Data for GSE103240' ];
 }
 
-// Populate the sample IDs into hmData.
+// Populate the sample IDs into hmData
 function fillInSampleIDs(sampleList) {
 	hmData['sampleIDs'] = [];
 	var sample;
@@ -86,12 +51,12 @@ function fillInSampleIDs(sampleList) {
 	log('Collected ' + hmData['sampleIDs'].length + ' sample IDs');
 }
 
-// Populate sample data into hmData.
+// Populate sample data into hmData
 function fillInSamples(sampleList) {
 	hmData['columnMetadataModel'] = {
 		'vectors' : [
 			{
-				'name' : 'Experiment Name',
+				'name' : 'Sample',
 				'array' : []
 			},
 			{
@@ -111,7 +76,7 @@ function fillInSamples(sampleList) {
 	log('Collected ' + hmData['columnMetadataModel']['vectors'].length + ' sample vectors');
 }
 
-// Populate marker data into hmData.
+// Populate marker data into hmData
 function fillInMarkers(markerList) {
 	hmData['rowMetadataModel'] = {
 		'vectors' : [
@@ -131,7 +96,7 @@ function fillInMarkers(markerList) {
 	log('Collected ' + hmData['rowMetadataModel']['vectors'].length + ' marker vectors');
 }
 
-// Actually build the structure of TPM values into hmData.
+// Populate TPM values into hmData
 function fillInCells(sampleList, markerList, cellTPM) {
 	var notStudied = null;		// flag for cells that have not been studied
 
@@ -169,7 +134,7 @@ function fillInCells(sampleList, markerList, cellTPM) {
 	log('Filled data array with ' + cells + ' cells');
 }
 
-// Slice and dice the data to produce the data for Morpheus; hand off to Morpheus to render the heat map
+// Populate heatmap data structure and use Morpheus to render
 function buildDataForMorpheus(sampleList, markerList, cellTPM) {
 	initializeHmData(sampleList, markerList);
 	fillInSampleIDs(sampleList);
@@ -183,7 +148,7 @@ function buildDataForMorpheus(sampleList, markerList, cellTPM) {
 	new morpheus.HeatMap({
 	    el: $('#heatmapWrapper'),
 	    dataset: hmData,
-		columns: [{field:"Experiment Name", display:["text"]}],
+		columns: [{field:"Sample", display:["text"]}],
 		colorScheme: {
 	      	type: 'fractions',
 	      	scalingMode: 'relative',
@@ -197,24 +162,14 @@ function buildDataForMorpheus(sampleList, markerList, cellTPM) {
 		}]
 	  }); 
 
-	// Hide the tab title at the top of the heat map, as it has odd characters that I can't get
-	// to disappear (and it's not overly useful anyway, for our purposes).
+	// Hide dataset tab at the top of the heat map to prevent user from deleting the active heatmap and redirecting to morpheus upload page
 	$('li.morpheus-sortable[role=presentation]').css('display', 'none');
-  
-	// Show the Tips popup after a brief delay, so we give the browser's scrollbars time to get
-	// into place.
-	setTimeout(function() { showPopup() }, 500);
-	var elapsed = new Date().getTime() - startTime;
-	log('Heatmap displayed (' + elapsed + ' ms)');
 }
 
 (async () => {
+	// Load data from csv file
 	const { sampleList, markerList, cellTPM, cellTPMNorm } = await loadData();
   
-	// Debugging checks
-	console.log("Samples loaded:", sampleList.length, sampleList);
-	console.log("Markers loaded:", markerList.length, markerList);
-	console.log("cellTPM keys:", Object.keys(cellTPM).slice(0, 10));
-  
+	// Build heatmap
 	buildDataForMorpheus(sampleList, markerList, cellTPM);
   })();
