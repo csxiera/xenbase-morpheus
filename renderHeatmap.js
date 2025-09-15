@@ -15,40 +15,16 @@ function log(msg) {
    	}
 }
 
-// Definitions for cell coloring based on average quantile-normalized TPM value.
-// Note that colorMap should not contain definitions less than zero.  (Below zero numbers make
-// all the cells show up as white.)
 var colorMap = [
-  { value: 0,
-    color: '#E0E0E0'
-  },
-  { value: 0.0000998,
-    color: '#E0E0E0'
-  },
-  { value: 0.0001000,
-    color: '#cdddc9'
-  },
-  { value: 0.0011500,
-    color: '#a4bfa1'
-  },
-  { value: 0.0022000,
-    color: '#6c7d6a'
-  },
-  { value: 0.1012000,
-    color: '#4f5f4e'
-  },
-  { value: 0.2002000,
-    color: '#3b4a3a'
-  },
-  { value: 0.4001000,
-    color: '#2a3528'
-  },
-  { value: 0.6000000,
-    color: '#1a2319'
-  },
-  { value: 1,
-    color: '#000000'
-  }
+  { value: -2.0, color: '#008080' },   // Deep teal
+  { value: -1.5, color: '#339999' },
+  { value: -1.0, color: '#66b2b2' },
+  { value: -0.5, color: '#99cccc' },
+  { value:  0.0, color: '#ffffff' },   // White
+  { value:  0.5, color: '#d4b28c' },
+  { value:  1.0, color: '#c48c5c' },
+  { value:  1.5, color: '#a66a3f' },
+  { value:  2.0, color: '#804000' }    // Orangy-brown
 ];
 
 // Show the legend popup.
@@ -105,7 +81,7 @@ function fillInSampleIDs(sampleList) {
 	var sample;
 	for (var s = 0; s < sampleList.length; s++) {
 		sample = sampleList[s];
-		hmData['sampleIDs'].push(sample['replicateID']);
+		hmData['sampleIDs'].push(sample['sampleID']);
 	}
 	log('Collected ' + hmData['sampleIDs'].length + ' sample IDs');
 }
@@ -119,7 +95,7 @@ function fillInSamples(sampleList) {
 				'array' : []
 			},
 			{
-				'name' : 'Replicate ID',
+				'name' : 'Sample ID',
 				'array' : []
 			}
 		]
@@ -129,7 +105,7 @@ function fillInSamples(sampleList) {
 	for (var s = 0; s < sampleList.length; s++) {
 		sample = sampleList[s];
 		hmData['columnMetadataModel']['vectors'][0]['array'].push(sample['label']);
-		hmData['columnMetadataModel']['vectors'][1]['array'].push(sample['replicateID']);
+		hmData['columnMetadataModel']['vectors'][1]['array'].push(sample['sampleID']);
 	}
 
 	log('Collected ' + hmData['columnMetadataModel']['vectors'].length + ' sample vectors');
@@ -172,8 +148,7 @@ function fillInCells(sampleList, markerList, cellTPM) {
 	
 	log('Created data array (' + hmData['rows'] + ' x ' + hmData['columns'] + ')');
 	
-	// Now populate the cells with real data from cellTPM.
-	
+	// Populate the cells with real data from cellTPM.
 	var marker;
 	var markerID;
 	var sample;
@@ -184,7 +159,7 @@ function fillInCells(sampleList, markerList, cellTPM) {
 		markerID = marker['markerID'];
 		for (var s = 0; s < sampleList.length; s++) {
 			sample = sampleList[s];
-			sampleID = parseInt(sample['replicateID']);
+			sampleID = parseInt(sample['sampleID']);
 			if ((markerID in cellTPM) && (sampleID in cellTPM[markerID])) {
 				hmData['seriesArrays'][0][m][s] = parseFloat(cellTPM[markerID][sampleID]);
 				cells++;
@@ -194,9 +169,8 @@ function fillInCells(sampleList, markerList, cellTPM) {
 	log('Filled data array with ' + cells + ' cells');
 }
 
-// Slice and dice the data to produce the data for Morpheus.  Then hand off to Morpheus to render the heat map.
+// Slice and dice the data to produce the data for Morpheus; hand off to Morpheus to render the heat map
 function buildDataForMorpheus(sampleList, markerList, cellTPM) {
-	//updateLoadingMessage(spinner + ' Collating cells, genes, and samples...', false);
 	initializeHmData(sampleList, markerList);
 	fillInSampleIDs(sampleList);
 	fillInSamples(sampleList);
@@ -209,15 +183,18 @@ function buildDataForMorpheus(sampleList, markerList, cellTPM) {
 	new morpheus.HeatMap({
 	    el: $('#heatmapWrapper'),
 	    dataset: hmData,
-	    colorScheme: {
-	      type: 'fractions',
-	      scalingMode: 1,
-	      stepped: false,
-	      min: 0,
-	      max: 5000,
-	      missingColor: '#FFFFFF',
-	      map: colorMap
-  		  }
+		columns: [{field:"Experiment Name", display:["text"]}],
+		colorScheme: {
+	      	type: 'fractions',
+	      	scalingMode: 'relative',
+	      	stepped: false,
+	      	missingColor: '#FFFFFF',
+	      	map: colorMap
+  		},
+		tools:[{ 
+			name: "Hierarchical Clustering", 
+			params: {cluster: "Rows"} 
+		}]
 	  }); 
 
 	// Hide the tab title at the top of the heat map, as it has odd characters that I can't get
@@ -232,7 +209,7 @@ function buildDataForMorpheus(sampleList, markerList, cellTPM) {
 }
 
 (async () => {
-	const { sampleList, markerList, cellTPM } = await loadData();
+	const { sampleList, markerList, cellTPM, cellTPMNorm } = await loadData();
   
 	// Debugging checks
 	console.log("Samples loaded:", sampleList.length, sampleList);
