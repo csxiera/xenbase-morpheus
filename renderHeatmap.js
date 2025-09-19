@@ -1,58 +1,103 @@
-import { loadData } from "./dataLoader.js";
+function createLogger(enabled = true) {
+    let logging = enabled;
+    let lastTime = new Date().getTime();
 
-var logging = true;		// is logging to the console enabled? (true/false)
-var lastTime = new Date().getTime();	// time in ms when last message was logged
-var startTime = new Date().getTime();	// time in ms when script loaded
-
-// log a message to the browser console, if logging is enabled
-function log(msg) {
-    if (logging) {
-	    try {
-	    	var elapsed = new Date().getTime() - lastTime;
-    		console.log(elapsed + 'ms : ' + msg);
-	    	lastTime = new Date().getTime();
-    	} catch (c) {}
-   	}
+    return {
+        log: function(msg) {
+            if (!logging) return;
+            try {
+                const now = new Date().getTime();
+                const elapsed = now - lastTime;
+                console.log(elapsed + 'ms : ' + msg);
+                lastTime = now;
+            } catch (err) {
+                // ignore
+            }
+        },
+        enable: function() { logging = true; },
+        disable: function() { logging = false; },
+        resetTimer: function() { lastTime = new Date().getTime(); }
+    };
 }
 
-// Heatmap coloring (-2 to +2 scale)
-var colorMap = [
-  { value: -2.0, color: '#008080' },
-  { value: -1.5, color: '#339999' },
-  { value: -1.0, color: '#66b2b2' },
-  { value: -0.5, color: '#99cccc' },
-  { value:  0.0, color: '#ffffff' },
-  { value:  0.5, color: '#d4b28c' },
-  { value:  1.0, color: '#c48c5c' },
-  { value:  1.5, color: '#a66a3f' },
-  { value:  2.0, color: '#804000' }
-];
+function loadData(rows) {
+    const sampleSet = new Map();
+    const markerSet = new Map();
+    const cellTPM = {};
 
-// Data structure for Morpheus
-var hmData = {};
+    const controlLabel = "Control";
+    const controlSampleID = 200;
+    sampleSet.set(controlLabel, controlSampleID);
+
+    rows.forEach((row) => {
+        const sampleLabel = row["binName"];      // sample label
+        const markerSymbol = row["geneSymbol"];  // gene symbol
+        const markerID = row["modelId"];         // marker ID
+        const tpm = parseFloat(row["tpmAvgVal"]);
+        const controlTpm = parseFloat(row["ctrlTpmAvgVal"]);
+
+        // Deduplicate samples
+        if (!sampleSet.has(sampleLabel)) {
+            sampleSet.set(sampleLabel, 200 + sampleSet.size);
+        }
+        const sampleID = sampleSet.get(sampleLabel);
+
+        // Deduplicate markers
+        if (!markerSet.has(markerID)) {
+            markerSet.set(markerID, markerSymbol);
+        }
+
+        // Populate cellTPM
+        if (!cellTPM[markerID]) cellTPM[markerID] = {};
+        cellTPM[markerID][sampleID] = tpm;
+        cellTPM[markerID][controlSampleID] = controlTpm;
+    });
+
+    // Sort genes by LogFC for first non-control sample (sampleID 201)
+    const logFC = rows
+        .filter(row => sampleSet.get(row["binName"]) === 201)
+        .map(row => ({
+            markerID: row["modelId"],
+            logFC: parseFloat(row["logFC"])
+        }))
+        .sort((a, b) => b.logFC - a.logFC);
+
+    // Convert maps → arrays
+    const sampleList = [...sampleSet.entries()].map(([label, id]) => ({
+        label,
+        sampleID: id
+    }));
+
+    const markerList = logFC.map(({ markerID, logFC }) => ({
+        markerID,
+        symbol: markerSet.get(markerID),
+        logFC
+    }));
+
+    return { sampleList, markerList, cellTPM };
+}
 
 // Reset the hmData structure and fill in the simple fields.
-function initializeHmData(sampleList, markerList) {
-	hmData = {};		// reset structure
+function initializeHmData(hmData, sampleList, markerList) {
 	hmData['rows'] = markerList.length;
 	hmData['columns'] = sampleList.length;
 	hmData['seriesDataTypes'] = [ 'Float32' ];
-	hmData['seriesNames'] = [ 'Differentially Expressed Gene Data for GSE103240' ];
+	hmData['seriesNames'] = [ 'Differentially Expressed Gene Data' ];
 }
 
 // Populate the sample IDs into hmData
-function fillInSampleIDs(sampleList) {
+function fillInSampleIDs(logger, hmData, sampleList) {
 	hmData['sampleIDs'] = [];
 	var sample;
 	for (var s = 0; s < sampleList.length; s++) {
 		sample = sampleList[s];
 		hmData['sampleIDs'].push(sample['sampleID']);
 	}
-	log('Collected ' + hmData['sampleIDs'].length + ' sample IDs');
+	logger.log('Collected ' + hmData['sampleIDs'].length + ' sample IDs');
 }
 
 // Populate sample data into hmData
-function fillInSamples(sampleList) {
+function fillInSamples(logger, hmData, sampleList) {
 	hmData['columnMetadataModel'] = {
 		'vectors' : [
 			{
@@ -73,11 +118,11 @@ function fillInSamples(sampleList) {
 		hmData['columnMetadataModel']['vectors'][1]['array'].push(sample['sampleID']);
 	}
 
-	log('Collected ' + hmData['columnMetadataModel']['vectors'].length + ' sample vectors');
+	logger.log('Collected ' + hmData['columnMetadataModel']['vectors'].length + ' sample vectors');
 }
 
 // Populate marker data into hmData
-function fillInMarkers(markerList) {
+function fillInMarkers(logger, hmData, markerList) {
 	hmData['rowMetadataModel'] = {
 		'vectors' : [
 			{
@@ -93,11 +138,11 @@ function fillInMarkers(markerList) {
 		hmData['rowMetadataModel']['vectors'][0]['array'].push(marker['symbol']);
 	}
 
-	log('Collected ' + hmData['rowMetadataModel']['vectors'].length + ' marker vectors');
+	logger.log('Collected ' + hmData['rowMetadataModel']['vectors'].length + ' marker vectors');
 }
 
 // Populate TPM values into hmData
-function fillInCells(sampleList, markerList, cellTPM) {
+function fillInCells(logger, hmData, sampleList, markerList, cellTPM) {
 	var notStudied = null;		// flag for cells that have not been studied
 
 	// Data are in a list of rows, with each row being a list of column values.
@@ -111,7 +156,7 @@ function fillInCells(sampleList, markerList, cellTPM) {
 		}
 	}
 	
-	log('Created data array (' + hmData['rows'] + ' x ' + hmData['columns'] + ')');
+	logger.log('Created data array (' + hmData['rows'] + ' x ' + hmData['columns'] + ')');
 	
 	// Populate the cells with real data from cellTPM.
 	var marker;
@@ -131,17 +176,18 @@ function fillInCells(sampleList, markerList, cellTPM) {
 			}
 		}
 	}
-	log('Filled data array with ' + cells + ' cells');
+	logger.log('Filled data array with ' + cells + ' cells');
 }
 
+
 // Populate heatmap data structure and use Morpheus to render
-function buildDataForMorpheus(sampleList, markerList, cellTPM) {
-	initializeHmData(sampleList, markerList);
-	fillInSampleIDs(sampleList);
-	fillInSamples(sampleList);
-	fillInMarkers(markerList);
-	fillInCells(sampleList, markerList, cellTPM);
-	log('Finished building data for Morpheus');
+function buildDataForMorpheus(logger, hmData, sampleList, markerList, cellTPM, colorMap) {
+	initializeHmData(hmData, sampleList, markerList);
+	fillInSampleIDs(logger, hmData, sampleList);
+	fillInSamples(logger, hmData, sampleList);
+	fillInMarkers(logger, hmData, markerList);
+	fillInCells(logger, hmData, sampleList, markerList, cellTPM);
+	logger.log('Finished building data for Morpheus');
 
 	$('#heatmapWrapper').empty();
 	
@@ -166,10 +212,66 @@ function buildDataForMorpheus(sampleList, markerList, cellTPM) {
 	$('li.morpheus-sortable[role=presentation]').css('display', 'none');
 }
 
-(async () => {
-	// Load data from csv file
-	const { sampleList, markerList, cellTPM, cellTPMNorm } = await loadData();
-  
-	// Build heatmap
-	buildDataForMorpheus(sampleList, markerList, cellTPM);
-  })();
+function renderHeatmap(data) {
+	const logger = createLogger(true);
+	
+	// Heatmap coloring (-2 to +2 scale)
+	var colorMap = [
+	  { value: -2.0, color: '#008080' },
+	  { value: -1.5, color: '#339999' },
+	  { value: -1.0, color: '#66b2b2' },
+	  { value: -0.5, color: '#99cccc' },
+	  { value:  0.0, color: '#ffffff' },
+	  { value:  0.5, color: '#d4b28c' },
+	  { value:  1.0, color: '#c48c5c' },
+	  { value:  1.5, color: '#a66a3f' },
+	  { value:  2.0, color: '#804000' }
+	];
+
+	// Data structure for Morpheus
+	var hmData = {};
+	
+    const { sampleList, markerList, cellTPM } = loadData(data);	//load data from json string
+    buildDataForMorpheus(logger, hmData, sampleList, markerList, cellTPM, colorMap);
+}
+
+const testData = [
+    {
+        binName: "Sample 1",
+        geneSymbol: "GeneA",
+        modelId: "M1",
+        logFC: "2.5",
+        tpmAvgVal: "10",
+        ctrlTpmAvgVal: "5",
+        fDr: "0.01"
+    },
+	{
+        binName: "Sample 1",
+        geneSymbol: "GeneB",
+        modelId: "M1",
+        logFC: "2.5",
+        tpmAvgVal: "10",
+        ctrlTpmAvgVal: "5",
+        fDr: "0.01"
+    },
+    {
+        binName: "Sample 2",
+        geneSymbol: "GeneA",
+        modelId: "M2",
+        logFC: "1.5",
+        tpmAvgVal: "20",
+        ctrlTpmAvgVal: "10",
+        fDr: "0.05"
+    },
+	{
+        binName: "Sample 2",
+        geneSymbol: "GeneB",
+        modelId: "M2",
+        logFC: "1.5",
+        tpmAvgVal: "20",
+        ctrlTpmAvgVal: "10",
+        fDr: "0.05"
+    }
+];
+
+renderHeatmap(testData);

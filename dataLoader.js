@@ -11,7 +11,7 @@ export async function loadData() {
     const markerSet = new Map();
     const cellTPM = {};
 
-    const controlLabel = "WE-NF14 (control)";
+    const controlLabel = "Control";
     const controlSampleID = 200;
     sampleSet.set(controlLabel, controlSampleID);
   
